@@ -1,17 +1,19 @@
+require("dotenv").config();
+
 const express = require("express");
 const connectDB = require("./config/db");
+const testRoutes = require("./routes/testRoutes");
 
 const app = express();
 
-const PORT = 5001;
+const PORT = process.env.PORT;
 
-// MongoDB connection
 connectDB();
 
-// Middleware
 app.use(express.json());
 
-// Test route
+app.use("/api", testRoutes);
+
 app.get("/", (req, res) => {
     res.send("Backend server is running!");
 });
