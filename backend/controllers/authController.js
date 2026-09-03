@@ -64,15 +64,16 @@ const loginUser = async (req, res) => {
         }
 
         const token = jwt.sign(
-            {
-                id: user._id,
-                email: user.email
-            },
-            process.env.JWT_SECRET,
-            {
-                expiresIn: "1d"
-            }
-        );
+    {
+        id: user._id,
+        email: user.email,
+        role: user.role
+    },
+    process.env.JWT_SECRET,
+    {
+        expiresIn: "1d"
+    }
+);
 
         res.json({
             message: "Login successful",
