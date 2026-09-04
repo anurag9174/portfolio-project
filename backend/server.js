@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const connectDB = require("./config/db");
-
+const userRoutes = require("./routes/userRoutes");
 const testRoutes = require("./routes/testRoutes");
 const authRoutes = require("./routes/authRoutes");
 
@@ -13,7 +13,7 @@ const PORT = process.env.PORT;
 connectDB();
 
 app.use(express.json());
-
+app.use("/api/users", userRoutes);
 app.use("/api", testRoutes);
 app.use("/api/auth", authRoutes);
 
