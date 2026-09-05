@@ -271,4 +271,163 @@ nav h2 {
     .auth-box h1 {
         font-size: 27px;
     }
+  }
+    @media (max-width: 500px) {
+
+    .auth-box {
+        width: 100%;
+        padding: 30px 22px;
+        border-radius: 18px;
+    }
+
+    .auth-box h1 {
+        font-size: 27px;
+    }
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f4fbff, #e1f5fe);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+}
+
+.dashboard-wrapper {
+    width: 100%;
+    max-width: 700px;
+}
+
+.dashboard-header {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+
+    border: 1px solid #b3e5fc;
+
+    box-shadow: 0 10px 30px rgba(0, 119, 182, 0.12);
+
+    margin-bottom: 20px;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    color: #0288d1;
+    font-size: 32px;
+}
+
+.dashboard-header p {
+    margin: 10px 0 0;
+    color: #78909c;
+    font-size: 15px;
+}
+
+.dashboard-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+
+    border: 1px solid #b3e5fc;
+
+    box-shadow: 0 10px 30px rgba(0, 119, 182, 0.12);
+
+    text-align: center;
+}
+
+.dashboard-card h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+
+    color: #0288d1;
+    font-size: 22px;
+}
+
+.dashboard-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 18px;
+    margin-bottom: 12px;
+
+    background: #f8fdff;
+
+    border: 1px solid #e1f5fe;
+
+    border-radius: 10px;
+
+    text-align: left;
+}
+
+.dashboard-info strong {
+    color: #37474f;
+}
+
+.dashboard-info span {
+    color: #546e7a;
+}
+
+.logout-button {
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 13px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #0288d1;
+    color: white;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.logout-button:hover {
+    background: #0277bd;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+
+    .dashboard-container {
+        padding: 15px;
+    }
+
+    .dashboard-header {
+        padding: 25px 20px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 27px;
+    }
+
+    .dashboard-card {
+        padding: 22px;
+    }
+
+    .dashboard-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
+
+.logout-button:hover {
+    background: #0277bd;
 }
