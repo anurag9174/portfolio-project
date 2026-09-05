@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
-
+const crypto = require("crypto");
 const createUser = async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
@@ -113,6 +113,54 @@ const updateUser = async (req, res) => {
         });
     }
 };
+const changePassword = async (req, res) => {
+    try {
+        const { currentPassword, newPassword } = req.body;
+
+        // Validation
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({
+                message: "Current password and new password are required"
+            });
+        }
+
+        // Get logged-in user
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        // Check current password
+        const isMatch = await bcrypt.compare(
+            currentPassword,
+            user.password
+        );
+
+        if (!isMatch) {
+            return res.status(400).json({
+                message: "Current password is incorrect"
+            });
+        }
+
+        // Hash new password
+        user.password = await bcrypt.hash(newPassword, 10);
+
+        await user.save();
+
+        res.status(200).json({
+            message: "Password changed successfully"
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Password change failed",
+            error: error.message
+        });
+    }
+};
 const deleteUser = async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);
@@ -134,10 +182,93 @@ const deleteUser = async (req, res) => {
         });
     }
 };
+const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json({
+                message: "Email is required"
+            });
+        }
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        // Generate random token
+        const resetToken = crypto.randomBytes(32).toString("hex");
+
+        // Save token and expiry
+        user.resetPasswordToken = resetToken;
+        user.resetPasswordExpire =
+            Date.now() + 15 * 60 * 1000;
+
+        await user.save();
+
+        res.status(200).json({
+            message: "Password reset token generated",
+            resetToken: resetToken
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Forgot password failed",
+            error: error.message
+        });
+    }
+};
+const resetPassword = async (req, res) => {
+    try {
+        const { token } = req.params;
+        const { newPassword } = req.body;
+
+        if (!newPassword) {
+            return res.status(400).json({
+                message: "New password is required"
+            });
+        }
+
+        const user = await User.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpire: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).json({
+                message: "Invalid or expired reset token"
+            });
+        }
+
+        user.password = await bcrypt.hash(newPassword, 10);
+
+        user.resetPasswordToken = null;
+        user.resetPasswordExpire = null;
+
+        await user.save();
+
+        res.status(200).json({
+            message: "Password reset successfully"
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Password reset failed",
+            error: error.message
+        });
+    }
+};
 
 module.exports = {
     createUser,
     getUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    changePassword,
+    forgotPassword,
+    resetPassword
 };

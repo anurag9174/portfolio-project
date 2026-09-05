@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../store/authSlice";
-
+import { Link } from "react-router-dom";
 function Dashboard() {
     const auth = useSelector((state) => state.auth);
 
@@ -45,7 +45,12 @@ function Dashboard() {
                             : "Not Authenticated"}
                     </span>
                 </div>
-
+<Link
+    to="/profile"
+    className="profile-button"
+>
+    View Profile
+</Link>
                 <button
                     onClick={handleLogout}
                     className="logout-button"

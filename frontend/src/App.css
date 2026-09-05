@@ -431,3 +431,55 @@ nav h2 {
 .logout-button:hover {
     background: #0277bd;
 }
+/* =========================
+   VIEW PROFILE BUTTON
+========================= */
+
+.profile-button {
+    display: block;
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 13px;
+
+    border: 1px solid #0288d1;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #0288d1;
+
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.profile-button:hover {
+    background: #e1f5fe;
+    color: #0277bd;
+
+    transform: translateY(-2px);
+}
+.forgot-password {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.forgot-password a {
+    color: #0288d1;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+

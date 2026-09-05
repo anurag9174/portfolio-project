@@ -5,7 +5,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
-
+import Profile from "./pages/Profile";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 function App() {
     return (
         <BrowserRouter>
@@ -14,6 +16,14 @@ function App() {
                 <Route path="/" element={<Home />} />
 
                 <Route path="/login" element={<Login />} />
+                <Route
+    path="/forgot-password"
+    element={<ForgotPassword />}
+/> 
+<Route
+    path="/reset-password/:token"
+    element={<ResetPassword />}
+/>
 
                 <Route path="/register" element={<Register />} />
 <Route
@@ -21,6 +31,14 @@ function App() {
     element={
         <ProtectedRoute>
             <Dashboard />
+        </ProtectedRoute>
+    }
+/>
+<Route
+    path="/profile"
+    element={
+        <ProtectedRoute>
+            <Profile />
         </ProtectedRoute>
     }
 />

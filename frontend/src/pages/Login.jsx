@@ -4,6 +4,7 @@ import api from "../services/api";
 import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice";
 
+
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -89,6 +90,11 @@ function Login() {
                         Create Account
                     </Link>
                 </p>
+                <p className="forgot-password">
+    <Link to="/forgot-password">
+        Forgot Password?
+    </Link>
+</p>
 
             </div>
 
