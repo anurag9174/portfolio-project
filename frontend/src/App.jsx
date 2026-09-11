@@ -8,6 +8,9 @@ import "./App.css";
 import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import ProductList from "./pages/ProductList";
+import AddProduct from "./pages/AddProduct";
+import EditProduct from "./pages/EditProduct";
 function App() {
     return (
         <BrowserRouter>
@@ -23,6 +26,10 @@ function App() {
 <Route
     path="/reset-password/:token"
     element={<ResetPassword />}
+/>
+<Route
+    path="/products"
+    element={<ProductList />}
 />
 
                 <Route path="/register" element={<Register />} />
@@ -43,6 +50,14 @@ function App() {
     }
 />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route
+    path="/add-product"
+    element={<AddProduct />}
+/>
+<Route
+    path="/edit-product/:id"
+    element={<EditProduct />}
+/>
 
             </Routes>
         </BrowserRouter>

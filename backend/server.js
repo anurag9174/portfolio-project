@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const productRoutes = require("./routes/productRoutes");
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
@@ -17,6 +17,8 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api", testRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
+
 
 app.get("/", (req, res) => {
     res.send("Backend server is running!");

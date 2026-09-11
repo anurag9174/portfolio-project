@@ -1,0 +1,115 @@
+.edit-product-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f4fbff, #e1f5fe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 20px;
+}
+
+.edit-product-card {
+    width: 100%;
+    max-width: 600px;
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 20px;
+    border: 1px solid #b3e5fc;
+    box-shadow: 0 10px 30px rgba(0, 119, 182, 0.12);
+}
+
+.edit-product-card h1 {
+    margin: 0 0 8px;
+    text-align: center;
+    color: #0288d1;
+    font-size: 30px;
+}
+
+.edit-product-subtitle {
+    text-align: center;
+    color: #78909c;
+    margin-bottom: 28px;
+    font-size: 14px;
+}
+
+.edit-form-group {
+    margin-bottom: 18px;
+}
+
+.edit-form-group label {
+    display: block;
+    margin-bottom: 7px;
+    color: #37474f;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.edit-form-group input,
+.edit-form-group textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #b3e5fc;
+    border-radius: 10px;
+    background: #f8fdff;
+    color: #37474f;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.edit-form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.edit-form-group input:focus,
+.edit-form-group textarea:focus {
+    border-color: #0288d1;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(2, 136, 209, 0.1);
+}
+
+.edit-submit-button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
+    background: #0288d1;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.edit-submit-button:hover {
+    background: #0277bd;
+    transform: translateY(-2px);
+}
+
+.edit-back-link {
+    display: block;
+    margin-top: 15px;
+    text-align: center;
+    color: #0288d1;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.edit-back-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .edit-product-container {
+        padding: 20px 15px;
+    }
+
+    .edit-product-card {
+        padding: 25px 20px;
+    }
+
+    .edit-product-card h1 {
+        font-size: 27px;
+    }
+}
