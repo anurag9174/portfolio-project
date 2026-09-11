@@ -19,7 +19,10 @@ const createProduct = async (req, res) => {
             name,
             description,
             price,
-            category
+            category,
+            image: req.file
+                ? `/uploads/${req.file.filename}`
+                : null
         });
 
         res.status(201).json({
@@ -34,6 +37,8 @@ const createProduct = async (req, res) => {
         });
     }
 };
+
+
 const getProducts = async (req, res) => {
     try {
         const products = await Product.find();
@@ -50,13 +55,27 @@ const getProducts = async (req, res) => {
         });
     }
 };
+
+
 const updateProduct = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const updateData = {
+            name: req.body.name,
+            description: req.body.description,
+            price: req.body.price,
+            category: req.body.category
+        };
+
+        if (req.file) {
+            updateData.image =
+                `/uploads/${req.file.filename}`;
+        }
+
         const product = await Product.findByIdAndUpdate(
             id,
-            req.body,
+            updateData,
             {
                 new: true,
                 runValidators: true
@@ -81,6 +100,8 @@ const updateProduct = async (req, res) => {
         });
     }
 };
+
+
 const deleteProduct = async (req, res) => {
     try {
         const { id } = req.params;
@@ -104,6 +125,8 @@ const deleteProduct = async (req, res) => {
         });
     }
 };
+
+
 const getProductById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -128,6 +151,7 @@ const getProductById = async (req, res) => {
         });
     }
 };
+
 
 module.exports = {
     createProduct,

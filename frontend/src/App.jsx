@@ -11,10 +11,12 @@ import ResetPassword from "./pages/ResetPassword";
 import ProductList from "./pages/ProductList";
 import AddProduct from "./pages/AddProduct";
 import EditProduct from "./pages/EditProduct";
+import AdminRoute from "./components/AdminRoute";
 function App() {
     return (
         <BrowserRouter>
             <Routes>
+                
 
                 <Route path="/" element={<Home />} />
 
@@ -29,7 +31,11 @@ function App() {
 />
 <Route
     path="/products"
-    element={<ProductList />}
+    element={
+        <ProtectedRoute>
+            <ProductList />
+        </ProtectedRoute>
+    }
 />
 
                 <Route path="/register" element={<Register />} />
@@ -52,13 +58,21 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route
     path="/add-product"
-    element={<AddProduct />}
-/>
-<Route
-    path="/edit-product/:id"
-    element={<EditProduct />}
+    element={
+        <AdminRoute>
+            <AddProduct />
+        </AdminRoute>
+    }
 />
 
+<Route
+    path="/edit-product/:id"
+    element={
+        <AdminRoute>
+            <EditProduct />
+        </AdminRoute>
+    }
+/>
             </Routes>
         </BrowserRouter>
     );

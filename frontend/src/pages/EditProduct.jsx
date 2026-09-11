@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-
 import { Link, useNavigate, useParams } from "react-router-dom";
-
 import api from "../services/api";
-
 import "./EditProduct.css";
 
 function EditProduct() {
@@ -15,6 +12,8 @@ function EditProduct() {
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [category, setCategory] = useState("");
+    const [image, setImage] = useState(null);
+    const [currentImage, setCurrentImage] = useState(null);
 
     const getProduct = async () => {
         try {
@@ -29,6 +28,7 @@ function EditProduct() {
             setDescription(product.description);
             setPrice(product.price);
             setCategory(product.category);
+            setCurrentImage(product.image);
 
         } catch (error) {
 
@@ -50,14 +50,20 @@ function EditProduct() {
 
         try {
 
+            const formData = new FormData();
+
+            formData.append("name", name);
+            formData.append("description", description);
+            formData.append("price", price);
+            formData.append("category", category);
+
+            if (image) {
+                formData.append("image", image);
+            }
+
             const response = await api.put(
                 `/products/${id}`,
-                {
-                    name: name,
-                    description: description,
-                    price: Number(price),
-                    category: category
-                }
+                formData
             );
 
             alert(response.data.message);
@@ -76,89 +82,117 @@ function EditProduct() {
     };
 
     return (
-    <div className="edit-product-container">
+        <div className="edit-product-container">
 
-        <div className="edit-product-card">
+            <div className="edit-product-card">
 
-            <h1>Edit Product</h1>
+                <h1>Edit Product</h1>
 
-            <p className="edit-product-subtitle">
-                Update your product information
-            </p>
+                <p className="edit-product-subtitle">
+                    Update your product information
+                </p>
 
-            <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
 
-                <div className="edit-form-group">
-                    <label>Name</label>
+                    <div className="edit-form-group">
+                        <label>Name</label>
 
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) =>
-                            setName(e.target.value)
-                        }
-                        required
-                    />
-                </div>
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={(e) =>
+                                setName(e.target.value)
+                            }
+                            required
+                        />
+                    </div>
 
-                <div className="edit-form-group">
-                    <label>Description</label>
+                    <div className="edit-form-group">
+                        <label>Description</label>
 
-                    <textarea
-                        value={description}
-                        onChange={(e) =>
-                            setDescription(e.target.value)
-                        }
-                        required
-                    />
-                </div>
+                        <textarea
+                            value={description}
+                            onChange={(e) =>
+                                setDescription(e.target.value)
+                            }
+                            required
+                        />
+                    </div>
 
-                <div className="edit-form-group">
-                    <label>Price</label>
+                    <div className="edit-form-group">
+                        <label>Price</label>
 
-                    <input
-                        type="number"
-                        value={price}
-                        onChange={(e) =>
-                            setPrice(e.target.value)
-                        }
-                        required
-                    />
-                </div>
+                        <input
+                            type="number"
+                            value={price}
+                            onChange={(e) =>
+                                setPrice(e.target.value)
+                            }
+                            required
+                        />
+                    </div>
 
-                <div className="edit-form-group">
-                    <label>Category</label>
+                    <div className="edit-form-group">
+                        <label>Category</label>
 
-                    <input
-                        type="text"
-                        value={category}
-                        onChange={(e) =>
-                            setCategory(e.target.value)
-                        }
-                        required
-                    />
-                </div>
+                        <input
+                            type="text"
+                            value={category}
+                            onChange={(e) =>
+                                setCategory(e.target.value)
+                            }
+                            required
+                        />
+                    </div>
 
-                <button
-                    type="submit"
-                    className="edit-submit-button"
+                    {/* Current Image */}
+
+                    {currentImage && (
+                        <div className="edit-form-group">
+                            <label>Current Image</label>
+
+                            <img
+                                src={`http://localhost:5001${currentImage}`}
+                                alt={name}
+                                className="edit-product-image"
+                            />
+                        </div>
+                    )}
+
+                    {/* New Image */}
+
+                    <div className="edit-form-group">
+                        <label>Change Image</label>
+
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) =>
+                                setImage(e.target.files[0])
+                            }
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="edit-submit-button"
+                    >
+                        Update Product
+                    </button>
+
+                </form>
+
+                <Link
+                    to="/products"
+                    className="edit-back-link"
                 >
-                    Update Product
-                </button>
+                    ← Back to Products
+                </Link>
 
-            </form>
-
-            <Link
-                to="/products"
-                className="edit-back-link"
-            >
-                ← Back to Products
-            </Link>
+            </div>
 
         </div>
-
-    </div>
-);
+    );
 }
 
 export default EditProduct;

@@ -1,6 +1,6 @@
 const express = require("express");
 
-const protect = require("../middleware/authMiddleware");
+const { protect } = require("../middleware/authMiddleware");
 
 const {
     createUser,
@@ -14,18 +14,39 @@ const {
 
 const router = express.Router();
 
+
+// Create User
 router.post("/", createUser);
 
+
+// Get Users
 router.get("/", getUsers);
 
+
+// Forgot Password
 router.post("/forgot-password", forgotPassword);
 
-router.put("/change-password", protect, changePassword);
 
-router.put("/reset-password/:token", resetPassword);
+// Change Password
+router.put(
+    "/change-password",
+    protect,
+    changePassword
+);
 
+
+// Reset Password
+router.put(
+    "/reset-password/:token",
+    resetPassword
+);
+
+
+// Update User
 router.put("/:id", updateUser);
 
+
+// Delete User
 router.delete("/:id", deleteUser);
 
 

@@ -267,3 +267,20 @@
     }
 
 }
+.dashboard-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px;
+    border: 2px solid #1296db;
+    border-radius: 8px;
+    background: white;
+    color: #1296db;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.dashboard-button:hover {
+    background: #1296db;
+    color: white;
+}

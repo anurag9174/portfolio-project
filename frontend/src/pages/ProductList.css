@@ -180,4 +180,48 @@
     .products-grid {
         grid-template-columns: 1fr;
     }
+    
+}
+.product-image {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.products-container {
+    width: 100%;
+}
+
+.products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.products-header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+@media (max-width: 550px) {
+
+    .products-header {
+        flex-direction: column;
+        gap: 20px;
+        align-items: stretch;
+    }
+
+    .products-header-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .products-header-actions .add-product-button {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
 }

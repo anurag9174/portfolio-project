@@ -113,3 +113,12 @@
         font-size: 27px;
     }
 }
+.edit-product-image {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    display: block;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #b3e5fc;
+}

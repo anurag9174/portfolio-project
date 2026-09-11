@@ -3,7 +3,7 @@ import { useState } from "react";
 import api from "../services/api";
 import { login } from "../store/authSlice";
 import "./Profile.css";
-
+import { Link } from "react-router-dom";
 function Profile() {
 
     const user = useSelector((state) => state.auth.user);
@@ -197,25 +197,30 @@ function Profile() {
 
                     {/* ================= ACTION BUTTONS ================= */}
 
-                    <div className="profile-actions">
+                   <div className="profile-actions">
 
-                        <button
-                            className="edit-button"
-                            onClick={() => setIsEditing(true)}
-                        >
-                            Edit Profile
-                        </button>
+    <Link
+        to="/dashboard"
+        className="dashboard-button"
+    >
+        Dashboard
+    </Link>
 
+    <button
+        className="edit-button"
+        onClick={() => setIsEditing(true)}
+    >
+        Edit Profile
+    </button>
 
-                        <button
-                            className="update-password-button"
-                            onClick={openChangePassword}
-                        >
-                            Update Password
-                        </button>
+    <button
+        className="update-password-button"
+        onClick={openChangePassword}
+    >
+        Update Password
+    </button>
 
-                    </div>
-
+</div>
                 </div>
 
 

@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import api from "../services/api";
 import "./ProductList.css";
+
 function ProductList() {
 
     const [products, setProducts] = useState([]);
+
+    const auth = useSelector((state) => state.auth);
+
+    const isAdmin = auth.user?.role === "admin";
 
     const getProducts = async () => {
         try {
@@ -53,54 +59,78 @@ function ProductList() {
     };
 
     return (
-    <div className="products-container">
+        <div className="products-container">
 
-        <div className="products-wrapper">
-
+            {/* Header */}
             <div className="products-header">
 
                 <h1>Products</h1>
 
-                <Link
-                    to="/add-product"
-                    className="add-product-button"
-                >
-                    + Add Product
-                </Link>
+                <div className="products-header-actions">
+
+                    <Link
+                        to="/profile"
+                        className="add-product-button"
+                    >
+                        My Profile
+                    </Link>
+
+                    <Link
+                        to="/dashboard"
+                        className="add-product-button"
+                    >
+                        Dashboard
+                    </Link>
+
+                    {/* Add Product - Admin Only */}
+                    {isAdmin && (
+                        <Link
+                            to="/add-product"
+                            className="add-product-button"
+                        >
+                            Add Product
+                        </Link>
+                    )}
+
+                </div>
 
             </div>
 
-            {products.length === 0 ? (
+            {/* Products */}
+            <div className="products-grid">
 
-                <div className="no-products">
-                    <p>No products found</p>
-                </div>
+                {products.map((product) => (
 
-            ) : (
+                    <div
+                        className="product-card"
+                        key={product._id}
+                    >
 
-                <div className="products-grid">
+                        {/* Product Image */}
+                        {product.image && (
+                            <img
+                                src={`http://localhost:5001${product.image}`}
+                                alt={product.name}
+                                className="product-image"
+                            />
+                        )}
 
-                    {products.map((product) => (
+                        <h2>{product.name}</h2>
 
-                        <div
-                            className="product-card"
-                            key={product._id}
-                        >
+                        <p className="product-description">
+                            {product.description}
+                        </p>
 
-                            <h2>{product.name}</h2>
+                        <p className="product-price">
+                            ₹{product.price}
+                        </p>
 
-                            <p className="product-description">
-                                {product.description}
-                            </p>
+                        <span className="product-category">
+                            {product.category}
+                        </span>
 
-                            <p className="product-price">
-                                ₹{product.price}
-                            </p>
-
-                            <span className="product-category">
-                                {product.category}
-                            </span>
-
+                        {/* Admin Actions */}
+                        {isAdmin && (
                             <div className="product-actions">
 
                                 <Link
@@ -120,19 +150,16 @@ function ProductList() {
                                 </button>
 
                             </div>
+                        )}
 
-                        </div>
+                    </div>
 
-                    ))}
+                ))}
 
-                </div>
-
-            )}
+            </div>
 
         </div>
-
-    </div>
-);
+    );
 }
 
 export default ProductList;

@@ -7,6 +7,7 @@ const userRoutes = require("./routes/userRoutes");
 const testRoutes = require("./routes/testRoutes");
 const authRoutes = require("./routes/authRoutes");
 
+
 const app = express();
 
 const PORT = process.env.PORT;
@@ -18,6 +19,7 @@ app.use("/api/users", userRoutes);
 app.use("/api", testRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
+app.use("/uploads", express.static("uploads"));
 
 
 app.get("/", (req, res) => {
