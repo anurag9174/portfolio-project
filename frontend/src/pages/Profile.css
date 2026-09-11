@@ -265,6 +265,14 @@
     .profile-actions {
         flex-direction: column;
     }
+    .product-search-section {
+    flex-direction: column;
+}
+
+.product-category-filter {
+    width: 100%;
+    box-sizing: border-box;
+}
 
 }
 .dashboard-button {
@@ -283,4 +291,43 @@
 .dashboard-button:hover {
     background: #1296db;
     color: white;
+}
+.product-search-section {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.product-search-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #b3e5fc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+}
+
+.product-search-input:focus {
+    border-color: #1296db;
+}
+
+.product-category-filter {
+    width: 220px;
+    padding: 12px 15px;
+    border: 1px solid #b3e5fc;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+    outline: none;
+}
+
+.product-category-filter:focus {
+    border-color: #1296db;
+}
+
+.no-products {
+    text-align: center;
+    width: 100%;
+    font-size: 18px;
+    color: #666;
 }

@@ -8,13 +8,22 @@ function ProductList() {
 
     const [products, setProducts] = useState([]);
 
+    const [search, setSearch] = useState("");
+    const [category, setCategory] = useState("");
+
     const auth = useSelector((state) => state.auth);
 
     const isAdmin = auth.user?.role === "admin";
 
     const getProducts = async () => {
         try {
-            const response = await api.get("/products");
+
+            const response = await api.get("/products", {
+                params: {
+                    search: search,
+                    category: category
+                }
+            });
 
             setProducts(response.data.products);
 
@@ -25,7 +34,7 @@ function ProductList() {
 
     useEffect(() => {
         getProducts();
-    }, []);
+    }, [search, category]);
 
     const handleDelete = async (id) => {
 
@@ -82,7 +91,6 @@ function ProductList() {
                         Dashboard
                     </Link>
 
-                    {/* Add Product - Admin Only */}
                     {isAdmin && (
                         <Link
                             to="/add-product"
@@ -96,65 +104,103 @@ function ProductList() {
 
             </div>
 
+
+            {/* Search and Filter */}
+            <div className="product-search-section">
+
+                <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="product-search-input"
+                />
+
+                <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="product-category-filter"
+                >
+                    <option value="">All Categories</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Books">Books</option>
+                    <option value="Accessories">Accessories</option>
+                </select>
+
+            </div>
+
+
             {/* Products */}
             <div className="products-grid">
 
-                {products.map((product) => (
+                {products.length > 0 ? (
 
-                    <div
-                        className="product-card"
-                        key={product._id}
-                    >
+                    products.map((product) => (
 
-                        {/* Product Image */}
-                        {product.image && (
-                            <img
-                                src={`http://localhost:5001${product.image}`}
-                                alt={product.name}
-                                className="product-image"
-                            />
-                        )}
+                        <div
+                            className="product-card"
+                            key={product._id}
+                        >
 
-                        <h2>{product.name}</h2>
+                            {/* Product Image */}
+                            {product.image && (
+                                <img
+                                    src={`http://localhost:5001${product.image}`}
+                                    alt={product.name}
+                                    className="product-image"
+                                />
+                            )}
 
-                        <p className="product-description">
-                            {product.description}
-                        </p>
+                            <h2>{product.name}</h2>
 
-                        <p className="product-price">
-                            ₹{product.price}
-                        </p>
+                            <p className="product-description">
+                                {product.description}
+                            </p>
 
-                        <span className="product-category">
-                            {product.category}
-                        </span>
+                            <p className="product-price">
+                                ₹{product.price}
+                            </p>
 
-                        {/* Admin Actions */}
-                        {isAdmin && (
-                            <div className="product-actions">
+                            <span className="product-category">
+                                {product.category}
+                            </span>
 
-                                <Link
-                                    to={`/edit-product/${product._id}`}
-                                    className="edit-product-button"
-                                >
-                                    Edit
-                                </Link>
 
-                                <button
-                                    className="delete-product-button"
-                                    onClick={() =>
-                                        handleDelete(product._id)
-                                    }
-                                >
-                                    Delete
-                                </button>
+                            {/* Admin Actions */}
+                            {isAdmin && (
+                                <div className="product-actions">
 
-                            </div>
-                        )}
+                                    <Link
+                                        to={`/edit-product/${product._id}`}
+                                        className="edit-product-button"
+                                    >
+                                        Edit
+                                    </Link>
 
-                    </div>
+                                    <button
+                                        className="delete-product-button"
+                                        onClick={() =>
+                                            handleDelete(product._id)
+                                        }
+                                    >
+                                        Delete
+                                    </button>
 
-                ))}
+                                </div>
+                            )}
+
+                        </div>
+
+                    ))
+
+                ) : (
+
+                    <p className="no-products">
+                        No products found.
+                    </p>
+
+                )}
 
             </div>
 

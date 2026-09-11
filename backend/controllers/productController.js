@@ -38,10 +38,30 @@ const createProduct = async (req, res) => {
     }
 };
 
-
 const getProducts = async (req, res) => {
     try {
-        const products = await Product.find();
+
+        const { search, category } = req.query;
+
+        let filter = {};
+
+        // Search by product name
+        if (search) {
+            filter.name = {
+                $regex: search,
+                $options: "i"
+            };
+        }
+
+        // Filter by category
+        if (category) {
+            filter.category = {
+                $regex: category,
+                $options: "i"
+            };
+        }
+
+        const products = await Product.find(filter);
 
         res.status(200).json({
             message: "Products fetched successfully",
@@ -49,10 +69,12 @@ const getProducts = async (req, res) => {
         });
 
     } catch (error) {
+
         res.status(500).json({
             message: "Failed to fetch products",
             error: error.message
         });
+
     }
 };
 
